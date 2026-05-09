@@ -349,6 +349,60 @@ nav {
 .bene-card .bene-icon { font-size: 1.8rem; margin-bottom: 14px; }
 .bene-card h3 { font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
 .bene-card p { font-size: 0.8rem; color: var(--muted); }
+.beneficiaries-section .bene-card {
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 30px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+  background-color: var(--dark);
+  text-align: left;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.beneficiaries-section .bene-card h3,
+.beneficiaries-section .bene-card p {
+  color: #FFFFFF !important;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.beneficiaries-section .bene-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.beneficiaries-section .bene-card p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.bene-card-youth {
+  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('youth.jpeg');
+}
+
+.bene-card-children {
+  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('children.jpg');
+}
+
+.bene-card-dropouts {
+  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('dropout.jpg');
+}
+
+.bene-card-unemployed {
+  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('unemployment.jpg');
+}
+
+.bene-card-women {
+  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('justice.jpg');
+}
 
 .approach-section { background: var(--green); padding: 90px 5%; }
 .approach-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
