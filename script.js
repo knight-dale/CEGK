@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Intersection Observer for scroll animations
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -16,13 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(card);
     });
 
-    // Form Handling
     const contactForm = document.getElementById('contactForm');
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const submitBtn = contactForm.querySelector('.submit-btn');
         
-        // Mock success state
         submitBtn.textContent = 'Message Sent ✓';
         submitBtn.style.background = '#2D6A2F';
         
@@ -36,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('scroll', () => {
   const navMenu = document.querySelector('.nav-menu');
-  // Darken further on scroll to maintain contrast over white sections
   if (window.scrollY > 100) {
     navMenu.style.background = 'rgba(0, 0, 0, 0.95)';
     navMenu.style.borderColor = 'rgba(255, 255, 255, 0.2)';

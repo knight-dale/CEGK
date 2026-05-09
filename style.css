@@ -23,7 +23,6 @@ nav {
   z-index: 1000;
   background: transparent;
   padding: 0 5%;
-  /* This ensures the container stays centered globally */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,10 +31,10 @@ nav {
 .nav-container {
   display: flex;
   align-items: center;
-  justify-content: center; /* Centers the .nav-menu */
+  justify-content: center; 
   width: 100%;
   max-width: 1400px;
-  position: relative; /* Necessary for absolute positioning of the brand */
+  position: relative;
 }
 
 .nav-brand {
@@ -43,7 +42,6 @@ nav {
   align-items: center;
   gap: 12px;
   text-decoration: none;
-  /* Pushes the brand to the far left of the relative container */
   position: absolute;
   left: 0;
 }
@@ -55,7 +53,6 @@ nav {
 }
 
 .nav-brand span {
-  /* Using your defined --green or a darker shade for visibility */
   color: #1B3318; 
   font-size: 1.1rem;
   font-weight: 700;
@@ -71,7 +68,6 @@ nav {
   align-items: center;
   padding: 6px 6px 6px 24px;
   gap: 30px;
-  /* The menu remains naturally centered by the .nav-container's justify-content */
 }
 
 .nav-links {
@@ -104,7 +100,6 @@ nav {
   transition: background 0.3s;
 }
 
-/* Hero with team.jpeg background */
 .hero {
   min-height: 100vh;
   background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4)), url('team.jpeg') no-repeat center center/cover;
@@ -143,7 +138,6 @@ nav {
   color: #fff;
 }
 
-/* Discover Button & Green Arrow */
 .btn-primary {
   background: #333;
   color: #fff;
@@ -425,7 +419,6 @@ nav {
   border-radius: 24px;
   border: 1px solid var(--border);
   box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-  /* Pulls the form up to align with the section title */
   margin-top: -120px; 
   position: relative;
   z-index: 10;
@@ -502,7 +495,6 @@ footer {
   .vm-grid { gap: 2px; }
 }
 
-/* Hamburger Base Styles */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -515,25 +507,24 @@ footer {
   display: block;
   width: 25px;
   height: 3px;
-  background-color: #1B3318; /* Dark green matching your brand */
+  background-color: #1B3318; 
   transition: all 0.3s ease;
   border-radius: 2px;
 }
 
-/* Mobile Responsiveness (Small Screens) */
 @media (max-width: 900px) {
   .hamburger {
-    display: flex; /* Show hamburger on mobile */
+    display: flex;
   }
 
   .nav-menu {
     position: fixed;
     top: 0;
-    right: -100%; /* Hidden off-screen */
+    right: -100%; 
     height: 100vh;
     width: 75%;
     max-width: 300px;
-    background: #111710; /* Dark background from your :root */
+    background: #111710;
     flex-direction: column;
     justify-content: center;
     gap: 40px;
@@ -544,7 +535,7 @@ footer {
   }
 
   .nav-menu.active {
-    right: 0; /* Slide in menu */
+    right: 0; 
   }
 
   .nav-links {
@@ -553,7 +544,7 @@ footer {
     gap: 25px;
   }
 
-  /* Hamburger Animation to 'X' */
+ 
   .hamburger.active span:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
   }
