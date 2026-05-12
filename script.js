@@ -48,12 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: json
             })
             .then(async (response) => {
+                const result = await response.json();
                 if (response.status == 200) {
                     btn.textContent = 'Message Sent ✓';
                     btn.style.background = '#2D6A2F';
                     contactForm.reset();
                 } else {
-                    btn.textContent = 'Error. Try Again';
+                    console.error("Web3Forms Error:", result.message);
+                    btn.textContent = 'Error: ' + result.message;
                 }
             })
             .catch(() => {
