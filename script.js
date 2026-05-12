@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactBtn = document.getElementById('submit-btn');
     const commentForm = document.getElementById('commentForm');
     const commentBtn = document.getElementById('comment-submit-btn');
-    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbyqWlV1mZPgI43xpKHuMSGnw0tZoDFZGJ7d7FXxCCd2PKNIftXRVifsHYdnxQq9ovRflg/exec';
+    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzDVqN7bKHIjIT-i59l3wtM0D36zlyPsGyB9SHbV_W1Lr-ZjAKTDFihfRoJ6Q8F3a51AQ/exec';
     let lastScrollY = window.pageYOffset;
 
     if (hamburger && navMenu) {
@@ -36,14 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
             commentBtn.disabled = true;
 
             const formData = new FormData(commentForm);
-
-            let nameValue = formData.get('name').trim();
-            if (!nameValue) {
-                formData.set('name', 'Anonymous');
+            if (!formData.get('name').trim()) { 
+                formData.set('name', 'Anonymous'); 
             }
 
             fetch(GOOGLE_SHEET_URL, { 
                 method: 'POST', 
+                mode: 'no-cors', 
                 body: formData 
             })
             .then(() => {
