@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactBtn = document.getElementById('submit-btn');
     const commentForm = document.getElementById('commentForm');
     const commentBtn = document.getElementById('comment-submit-btn');
-    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbw_UQFyex8EprDGI2n0vlwqp9xN-yTKN9Eywd43uzOvE8LKhAJjjvMF0hy_YqeuE4J9OA/exec';
+    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbyqWlV1mZPgI43xpKHuMSGnw0tZoDFZGJ7d7FXxCCd2PKNIftXRVifsHYdnxQq9ovRflg/exec';
     let lastScrollY = window.pageYOffset;
 
     if (hamburger && navMenu) {
@@ -29,34 +29,36 @@ document.addEventListener('DOMContentLoaded', () => {
         lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
     }, { passive: true });
 
-    if (contactForm && contactBtn) {
-        contactForm.addEventListener('submit', function(e) {
+    if (commentForm && commentBtn) {
+        commentForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            contactBtn.textContent = 'Sending...';
-            contactBtn.disabled = true;
-            const formData = new FormData(contactForm);
-            const object = Object.fromEntries(formData);
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(object)
+            commentBtn.textContent = 'Posting...';
+            commentBtn.disabled = true;
+
+            const formData = new FormData(commentForm);
+
+            let nameValue = formData.get('name').trim();
+            if (!nameValue) {
+                formData.set('name', 'Anonymous');
+            }
+
+            fetch(GOOGLE_SHEET_URL, { 
+                method: 'POST', 
+                body: formData 
             })
-            .then(async (response) => {
-                const result = await response.json();
-                if (response.status == 200) {
-                    contactBtn.textContent = 'Message Sent ✓';
-                    contactBtn.style.background = '#2D6A2F';
-                    contactForm.reset();
-                } else {
-                    contactBtn.textContent = 'Error: ' + result.message;
-                }
+            .then(() => {
+                commentBtn.textContent = 'Comment Posted ✓';
+                commentBtn.style.background = '#2D6A2F';
+                commentForm.reset();
             })
-            .catch(() => { contactBtn.textContent = 'Network Error'; })
+            .catch(() => { 
+                commentBtn.textContent = 'Error. Try Again'; 
+            })
             .finally(() => {
                 setTimeout(() => {
-                    contactBtn.textContent = 'Send Message →';
-                    contactBtn.disabled = false;
-                    contactBtn.style.background = '';
+                    commentBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Comment';
+                    commentBtn.disabled = false;
+                    commentBtn.style.background = '';
                 }, 4000);
             });
         });
