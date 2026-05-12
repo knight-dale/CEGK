@@ -36,14 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
             commentBtn.disabled = true;
 
             const formData = new FormData(commentForm);
-            if (!formData.get('name').trim()) { 
-                formData.set('name', 'Anonymous'); 
-            }
+            const params = new URLSearchParams(formData);
 
             fetch(GOOGLE_SHEET_URL, { 
                 method: 'POST', 
-                mode: 'no-cors', 
-                body: formData 
+                mode: 'no-cors',
+                body: params 
             })
             .then(() => {
                 commentBtn.textContent = 'Comment Posted ✓';
