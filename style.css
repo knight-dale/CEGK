@@ -517,6 +517,18 @@ nav {
     text-align: left; 
 }
 
+.comment-section .section-title {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 1024px) {
+    .comment-section .section-title {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
 @media (min-width: 1024px) {
     .comment-section {
         text-align: left; 
