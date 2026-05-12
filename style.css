@@ -424,6 +424,73 @@ nav {
     max-width: 100%;
 }
 
+.comment-section {
+  padding: 100px 5%;
+  text-align: center;
+  background: var(--white);
+}
+
+.comment-subtitle {
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+.comment-form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--white);
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
+
+.comment-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.comment-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.privacy-note {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.comment-btn {
+  background: #4A9E4D;
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comment-btn:hover {
+  background: var(--green);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .comment-form-row { grid-template-columns: 1fr; }
+  .comment-footer { flex-direction: column; gap: 20px; }
+}
+
 .field-group input,
 .field-group textarea,
 .field-group select {

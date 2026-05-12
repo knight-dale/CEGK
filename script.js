@@ -3,7 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const navMenu = document.getElementById('navMenu');
     const nav = document.querySelector('nav');
     const contactForm = document.getElementById('contactForm');
-    const btn = document.getElementById('submit-btn');
+    const contactBtn = document.getElementById('submit-btn');
+    const commentForm = document.getElementById('commentForm');
+    const commentBtn = document.getElementById('comment-submit-btn');
+    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbw_UQFyex8EprDGI2n0vlwqp9xN-yTKN9Eywd43uzOvE8LKhAJjjvMF0hy_YqeuE4J9OA/exec';
     let lastScrollY = window.pageYOffset;
 
     if (hamburger && navMenu) {
@@ -16,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', () => {
         const currentScrollY = window.pageYOffset;
-
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
             nav.classList.add('nav-hidden');
             hamburger?.classList.remove('active');
@@ -24,48 +26,61 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             nav.classList.remove('nav-hidden');
         }
-
         lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
     }, { passive: true });
 
-    if (contactForm && btn) {
+    if (contactForm && contactBtn) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            btn.textContent = 'Sending...';
-            btn.disabled = true;
-
+            contactBtn.textContent = 'Sending...';
+            contactBtn.disabled = true;
             const formData = new FormData(contactForm);
             const object = Object.fromEntries(formData);
-            const json = JSON.stringify(object);
-
             fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: json
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(object)
             })
             .then(async (response) => {
                 const result = await response.json();
                 if (response.status == 200) {
-                    btn.textContent = 'Message Sent ✓';
-                    btn.style.background = '#2D6A2F';
+                    contactBtn.textContent = 'Message Sent ✓';
+                    contactBtn.style.background = '#2D6A2F';
                     contactForm.reset();
                 } else {
-                    console.error("Web3Forms Error:", result.message);
-                    btn.textContent = 'Error: ' + result.message;
+                    contactBtn.textContent = 'Error: ' + result.message;
                 }
             })
-            .catch(() => {
-                btn.textContent = 'Network Error';
-            })
+            .catch(() => { contactBtn.textContent = 'Network Error'; })
             .finally(() => {
                 setTimeout(() => {
-                    btn.textContent = 'Send Message →';
-                    btn.disabled = false;
-                    btn.style.background = '';
+                    contactBtn.textContent = 'Send Message →';
+                    contactBtn.disabled = false;
+                    contactBtn.style.background = '';
+                }, 4000);
+            });
+        });
+    }
+
+    if (commentForm && commentBtn) {
+        commentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            commentBtn.textContent = 'Posting...';
+            commentBtn.disabled = true;
+            const formData = new FormData(commentForm);
+            if (!formData.get('name')) { formData.set('name', 'Anonymous'); }
+            fetch(GOOGLE_SHEET_URL, { method: 'POST', body: formData })
+            .then(() => {
+                commentBtn.textContent = 'Comment Posted ✓';
+                commentBtn.style.background = '#2D6A2F';
+                commentForm.reset();
+            })
+            .catch(() => { commentBtn.textContent = 'Error. Try Again'; })
+            .finally(() => {
+                setTimeout(() => {
+                    commentBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Comment';
+                    commentBtn.disabled = false;
+                    commentBtn.style.background = '';
                 }, 4000);
             });
         });
