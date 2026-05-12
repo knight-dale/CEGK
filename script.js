@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactBtn = document.getElementById('submit-btn');
     const commentForm = document.getElementById('commentForm');
     const commentBtn = document.getElementById('comment-submit-btn');
-    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbyXIZGzW6YOcwfiBxe_5OJK0F27ttr79CEGrag_NoYpZk3mIMA6odlcEAwa1ebQBv3-DA/exec';
+    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxxw9crERw_S2FYArleKxLcgvZ2VQPk1-KSIsiYiFaq2gVnc_0O-vpBLyYUm7UH-pfq6Q/exec';
     let lastScrollY = window.pageYOffset;
 
     if (hamburger && navMenu) {
