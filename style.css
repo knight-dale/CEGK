@@ -424,20 +424,6 @@ nav {
     max-width: 100%;
 }
 
-.comment-section {
-    padding: 100px 5%;
-    background: var(--white);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center; 
-}
-
-.comment-section .section-label {
-    justify-content: center;
-    width: 100%;
-}
-
 .comment-section .section-title {
     margin-left: auto;
     margin-right: auto;
@@ -503,12 +489,23 @@ nav {
     line-height: 1.5;
 }
 
+.comment-section {
+    padding: 100px 5%;
+    background: var(--white);
+    text-align: center; 
+}
+
+.comment-section .section-label {
+    justify-content: center;
+    width: 100%;
+}
+
 .comment-main-layout {
     display: grid;
     grid-template-columns: 1fr;
     gap: 40px;
     max-width: 1400px;
-    margin: 0 auto;
+    margin: 40px auto 0;
     align-items: start;
 }
 
