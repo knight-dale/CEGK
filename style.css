@@ -474,6 +474,35 @@ nav {
   margin-top: 20px;
 }
 
+.recent-comments-list {
+    max-width: 800px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.comment-card {
+    background: #fff;
+    border-left: 4px solid #2D6A2F;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    text-align: left;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.comment-card p {
+    color: #444;
+    line-height: 1.5;
+}
+
 .privacy-note {
   font-size: 0.8rem;
   color: var(--muted);

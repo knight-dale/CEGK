@@ -6,8 +6,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactBtn = document.getElementById('submit-btn');
     const commentForm = document.getElementById('commentForm');
     const commentBtn = document.getElementById('comment-submit-btn');
-    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxxw9crERw_S2FYArleKxLcgvZ2VQPk1-KSIsiYiFaq2gVnc_0O-vpBLyYUm7UH-pfq6Q/exec';
+    const recentCommentsContainer = document.getElementById('recent-comments-container');
+    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzrn0eaWBUu1ZzRz61uGNegAZolxMoX0MA-DVsBz-seOSdKPDMTuJs9QpRxnIDIbEC2gQ/exec';
     let lastScrollY = window.pageYOffset;
+
+    const fetchComments = () => {
+        if (!recentCommentsContainer) return;
+        fetch(GOOGLE_SHEET_URL)
+            .then(res => res.json())
+            .then(response => {
+                const data = response.data || [];
+                recentCommentsContainer.innerHTML = '';
+                data.reverse().forEach(item => {
+                    const date = new Date(item.timestamp).toLocaleDateString('en-US', {
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    const card = document.createElement('div');
+                    card.className = 'comment-card animate-on-scroll';
+                    card.innerHTML = `
+                        <div class="comment-header">
+                            <strong>${item.name || 'Anonymous'}</strong>
+                            <span>${date}</span>
+                        </div>
+                        <p>${item.comment}</p>
+                        ${item.email ? `<small>${item.email}</small>` : ''}
+                    `;
+                    recentCommentsContainer.appendChild(card);
+                });
+            })
+            .catch(err => console.error('Fetch error:', err));
+    };
 
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', (e) => {
@@ -29,33 +61,33 @@ document.addEventListener('DOMContentLoaded', () => {
         lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
     }, { passive: true });
 
-    if (commentForm && commentBtn) {
-        commentForm.addEventListener('submit', function(e) {
+    if (contactForm && contactBtn) {
+        contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            commentBtn.textContent = 'Posting...';
-            commentBtn.disabled = true;
-
-            const formData = new FormData(commentForm);
-            const params = new URLSearchParams(formData);
-
-            fetch(GOOGLE_SHEET_URL, { 
-                method: 'POST', 
-                mode: 'no-cors',
-                body: params 
+            contactBtn.textContent = 'Sending...';
+            contactBtn.disabled = true;
+            const formData = new FormData(contactForm);
+            const object = Object.fromEntries(formData);
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(object)
             })
-            .then(() => {
-                commentBtn.textContent = 'Comment Posted ✓';
-                commentBtn.style.background = '#2D6A2F';
-                commentForm.reset();
+            .then(async (response) => {
+                if (response.status == 200) {
+                    contactBtn.textContent = 'Message Sent ✓';
+                    contactBtn.style.background = '#2D6A2F';
+                    contactForm.reset();
+                } else {
+                    contactBtn.textContent = 'Error. Try Again';
+                }
             })
-            .catch(() => { 
-                commentBtn.textContent = 'Error. Try Again'; 
-            })
+            .catch(() => { contactBtn.textContent = 'Network Error'; })
             .finally(() => {
                 setTimeout(() => {
-                    commentBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Comment';
-                    commentBtn.disabled = false;
-                    commentBtn.style.background = '';
+                    contactBtn.textContent = 'Send Message →';
+                    contactBtn.disabled = false;
+                    contactBtn.style.background = '';
                 }, 4000);
             });
         });
@@ -67,14 +99,22 @@ document.addEventListener('DOMContentLoaded', () => {
             commentBtn.textContent = 'Posting...';
             commentBtn.disabled = true;
             const formData = new FormData(commentForm);
-            if (!formData.get('name')) { formData.set('name', 'Anonymous'); }
-            fetch(GOOGLE_SHEET_URL, { method: 'POST', body: formData })
+            if (!formData.get('name').trim()) { formData.set('name', 'Anonymous'); }
+            const params = new URLSearchParams(formData);
+            fetch(GOOGLE_SHEET_URL, { 
+                method: 'POST', 
+                mode: 'no-cors',
+                body: params 
+            })
             .then(() => {
                 commentBtn.textContent = 'Comment Posted ✓';
                 commentBtn.style.background = '#2D6A2F';
                 commentForm.reset();
+                setTimeout(fetchComments, 1500);
             })
-            .catch(() => { commentBtn.textContent = 'Error. Try Again'; })
+            .catch(() => { 
+                commentBtn.textContent = 'Error. Try Again'; 
+            })
             .finally(() => {
                 setTimeout(() => {
                     commentBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Comment';
@@ -94,10 +134,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.animate-on-scroll').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'all 0.6s ease-out';
-        observer.observe(card);
-    });
+    const observeNewElements = () => {
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            if (el.style.opacity !== '1') {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.6s ease-out';
+                observer.observe(el);
+            }
+        });
+    };
+
+    observeNewElements();
+    fetchComments();
 });
