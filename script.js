@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const commentForm = document.getElementById('commentForm');
     const commentBtn = document.getElementById('comment-submit-btn');
     const recentCommentsContainer = document.getElementById('recent-comments-container');
-    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxn6eIzJRQXyelb3zn68gFsMnOrrMMZIXIqZIbE-SCa1iQU680tfdldijoFTRhGYZmMbQ/exec';
+    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbw0sswOt4GEh8Bu1P8f1O7GfgdPy1qN8Bx6TQNIMxAtHAQ7Buu0_npOtsTTaFeNCKfR-g/exec';
     let lastScrollY = window.pageYOffset;
 
     const fetchComments = () => {
