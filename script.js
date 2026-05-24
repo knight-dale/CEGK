@@ -10,6 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbw0sswOt4GEh8Bu1P8f1O7GfgdPy1qN8Bx6TQNIMxAtHAQ7Buu0_npOtsTTaFeNCKfR-g/exec';
     let lastScrollY = window.pageYOffset;
 
+    const orderForm = document.getElementById('orderForm');
+    const orderSubmitBtn = document.getElementById('submitBtn');
+    const quantitySelect = document.getElementById('quantity');
+    const totalAmountSpan = document.getElementById('totalAmount');
+    const paymentAmountStrong = document.getElementById('paymentAmount');
+    const copyBusinessBtn = document.getElementById('copyBusinessNo');
+    const copyAccountBtn = document.getElementById('copyAccountNo');
+
     const fetchComments = () => {
         if (!recentCommentsContainer) return;
         fetch(GOOGLE_SHEET_URL)
@@ -120,6 +128,72 @@ document.addEventListener('DOMContentLoaded', () => {
                     commentBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Comment';
                     commentBtn.disabled = false;
                     commentBtn.style.background = '';
+                }, 4000);
+            });
+        });
+    }
+
+    if (quantitySelect) {
+        quantitySelect.addEventListener('change', (e) => {
+            const val = e.target.value;
+            const cost = val * 800;
+            const formattedCost = `KSH ${cost.toLocaleString()}`;
+            if (totalAmountSpan) totalAmountSpan.textContent = formattedCost;
+            if (paymentAmountStrong) paymentAmountStrong.textContent = formattedCost;
+        });
+    }
+
+    const setupCopy = (btn, textToCopy) => {
+        if (!btn) return;
+        btn.addEventListener('click', () => {
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied';
+                setTimeout(() => { btn.innerHTML = originalHtml; }, 2000);
+            });
+        });
+    };
+
+    setupCopy(copyBusinessBtn, '880100');
+    setupCopy(copyAccountBtn, '9676730018');
+
+    if (orderForm && orderSubmitBtn) {
+        orderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            orderSubmitBtn.textContent = 'Processing Order...';
+            orderSubmitBtn.disabled = true;
+
+            const formData = new FormData(orderForm);
+            const formObject = Object.fromEntries(formData);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(formObject)
+            })
+            .then(async (response) => {
+                if (response.status === 200) {
+                    orderSubmitBtn.textContent = 'Order Submitted ✓';
+                    orderSubmitBtn.style.backgroundColor = '#15803d';
+                    orderForm.reset();
+                    if (totalAmountSpan) totalAmountSpan.textContent = 'KSH 800';
+                    if (paymentAmountStrong) paymentAmountStrong.textContent = 'KSH 800';
+                } else {
+                    orderSubmitBtn.textContent = 'Submission Failed. Try Again';
+                }
+            })
+            .catch(() => {
+                orderSubmitBtn.textContent = 'Network Error';
+            })
+            .finally(() => {
+                setTimeout(() => {
+                    orderSubmitBtn.innerHTML = '<i class="fas fa-paper-plane"></i>Submit Order';
+                    orderSubmitBtn.disabled = false;
+                    orderSubmitBtn.style.backgroundColor = '';
                 }, 4000);
             });
         });
