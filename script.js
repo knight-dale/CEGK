@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.addEventListener('scroll', () => {
+        if (!nav) return;
         const currentScrollY = window.pageYOffset;
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
             nav.classList.add('nav-hidden');
