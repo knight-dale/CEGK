@@ -365,7 +365,7 @@ nav.nav-hidden{transform:translateY(-100%);}
 }
 
 .badge-top{top:10%;left:6%;}
-.badge-mid{top:60%;left:3%;}
+.badge-mid{top:28%;left:3%;}
 .badge-right{top:48%;right:4%;}
 
 .badge-stat{
@@ -1508,7 +1508,7 @@ footer{background:var(--dark);color:#c9c7b8;padding:80px 5% 30px;}
   .hero-container,.about-grid,.approach-inner,.merchandise-content,.contact-grid,.comment-main-layout{
     grid-template-columns:1fr;
   }
-  .hero-visual{order:-1;max-width:480px;margin:0 auto;}
+  .hero-visual{max-width:480px;margin:0 auto;}
   .obj-grid{grid-template-columns:repeat(3,1fr);}
   .programs-grid{grid-template-columns:repeat(2,1fr);}
   .bene-grid{grid-template-columns:repeat(2,1fr);}
