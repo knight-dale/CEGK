@@ -1,225 +1,279 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    const nav = document.querySelector('nav');
-    const contactForm = document.getElementById('contactForm');
-    const contactBtn = document.getElementById('submit-btn');
-    const commentForm = document.getElementById('commentForm');
-    const commentBtn = document.getElementById('comment-submit-btn');
-    const recentCommentsContainer = document.getElementById('recent-comments-container');
-    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbw0sswOt4GEh8Bu1P8f1O7GfgdPy1qN8Bx6TQNIMxAtHAQ7Buu0_npOtsTTaFeNCKfR-g/exec';
-    let lastScrollY = window.pageYOffset;
+document.addEventListener('DOMContentLoaded', function () {
 
-    const orderForm = document.getElementById('orderForm');
-    const orderSubmitBtn = document.getElementById('submitBtn');
-    const quantitySelect = document.getElementById('quantity');
-    const totalAmountSpan = document.getElementById('totalAmount');
-    const paymentAmountStrong = document.getElementById('paymentAmount');
-    const copyBusinessBtn = document.getElementById('copyBusinessNo');
-    const copyAccountBtn = document.getElementById('copyAccountNo');
+  var hamburger = document.getElementById('hamburger');
+  var navMenu = document.getElementById('navMenu');
+  var nav = document.querySelector('nav');
+  var lastScrollY = window.pageYOffset;
 
-    const fetchComments = () => {
-        if (!recentCommentsContainer) return;
-        fetch(GOOGLE_SHEET_URL)
-            .then(res => res.json())
-            .then(response => {
-                const data = response.data || [];
-                recentCommentsContainer.innerHTML = '';
-                data.reverse().forEach(item => {
-                    const date = new Date(item.timestamp).toLocaleDateString('en-US', {
-                        month: 'long',
-                        day: 'numeric',
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    });
-                    const card = document.createElement('div');
-                    card.className = 'comment-card animate-on-scroll';
-                    card.innerHTML = `
-                        <div class="comment-header">
-                            <strong>${item.name || 'Anonymous'}</strong>
-                            <span>${date}</span>
-                        </div>
-                        <p>${item.comment}</p>
-                        ${item.email ? `<small>${item.email}</small>` : ''}
-                    `;
-                    recentCommentsContainer.appendChild(card);
-                });
-            })
-            .catch(err => console.error('Fetch error:', err));
-    };
+  var GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbw0sswOt4GEh8Bu1P8f1O7GfgdPy1qN8Bx6TQNIMxAtHAQ7Buu0_npOtsTTaFeNCKfR-g/exec';
 
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', (e) => {
-            e.preventDefault();
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-    }
+  var contactForm = document.getElementById('contactForm');
+  var contactBtn = document.getElementById('submit-btn');
+  var contactStatus = document.getElementById('contactStatus');
 
-    window.addEventListener('scroll', () => {
-        if (!nav) return;
-        const currentScrollY = window.pageYOffset;
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-            nav.classList.add('nav-hidden');
-            hamburger?.classList.remove('active');
-            navMenu?.classList.remove('active');
-        } else {
-            nav.classList.remove('nav-hidden');
+  var commentForm = document.getElementById('commentForm');
+  var commentBtn = document.getElementById('comment-submit-btn');
+  var recentCommentsContainer = document.getElementById('recent-comments-container');
+
+  var orderForm = document.getElementById('orderForm');
+  var orderSubmitBtn = document.getElementById('submitBtn');
+  var orderStatus = document.getElementById('orderStatus');
+  var quantitySelect = document.getElementById('quantity');
+  var totalAmountSpan = document.getElementById('totalAmount');
+  var paymentAmountStrong = document.getElementById('paymentAmount');
+  var copyBusinessBtn = document.getElementById('copyBusinessNo');
+  var copyAccountBtn = document.getElementById('copyAccountNo');
+
+  var observer = null;
+  if ('IntersectionObserver' in window) {
+    observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
         }
-        lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
-    }, { passive: true });
+      });
+    }, { threshold: 0.12 });
+  }
 
-    if (contactForm && contactBtn) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            contactBtn.textContent = 'Sending...';
-            contactBtn.disabled = true;
-            const formData = new FormData(contactForm);
-            const object = Object.fromEntries(formData);
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(object)
-            })
-            .then(async (response) => {
-                if (response.status == 200) {
-                    contactBtn.textContent = 'Message Sent ✓';
-                    contactBtn.style.background = '#2D6A2F';
-                    contactForm.reset();
-                } else {
-                    contactBtn.textContent = 'Error. Try Again';
-                }
-            })
-            .catch(() => { contactBtn.textContent = 'Network Error'; })
-            .finally(() => {
-                setTimeout(() => {
-                    contactBtn.textContent = 'Send Message →';
-                    contactBtn.disabled = false;
-                    contactBtn.style.background = '';
-                }, 4000);
-            });
-        });
+  function observeAnimatable() {
+    var targets = document.querySelectorAll('.animate-on-scroll, .obj-card, .gallery-item, .comment-card');
+    targets.forEach(function (el) {
+      if (el.classList.contains('in-view')) return;
+      if (observer) {
+        observer.observe(el);
+      } else {
+        el.classList.add('in-view');
+      }
+    });
+  }
+
+  observeAnimatable();
+
+  if (hamburger && navMenu) {
+    hamburger.addEventListener('click', function (e) {
+      e.preventDefault();
+      hamburger.classList.toggle('open');
+      navMenu.classList.toggle('open');
+    });
+
+    navMenu.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        hamburger.classList.remove('open');
+        navMenu.classList.remove('open');
+      });
+    });
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!nav) return;
+    var currentScrollY = window.pageYOffset;
+    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      nav.classList.add('nav-hidden');
+      if (hamburger) hamburger.classList.remove('open');
+      if (navMenu) navMenu.classList.remove('open');
+    } else {
+      nav.classList.remove('nav-hidden');
     }
+    lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
+  }, { passive: true });
 
-    if (commentForm && commentBtn) {
-        commentForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            commentBtn.textContent = 'Posting...';
-            commentBtn.disabled = true;
-            const formData = new FormData(commentForm);
-            if (!formData.get('name').trim()) { formData.set('name', 'Anonymous'); }
-            const params = new URLSearchParams(formData);
-            fetch(GOOGLE_SHEET_URL, { 
-                method: 'POST', 
-                mode: 'no-cors',
-                body: params 
-            })
-            .then(() => {
-                commentBtn.textContent = 'Comment Posted ✓';
-                commentBtn.style.background = '#2D6A2F';
-                commentForm.reset();
-                setTimeout(fetchComments, 1500);
-            })
-            .catch(() => { 
-                commentBtn.textContent = 'Error. Try Again'; 
-            })
-            .finally(() => {
-                setTimeout(() => {
-                    commentBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Comment';
-                    commentBtn.disabled = false;
-                    commentBtn.style.background = '';
-                }, 4000);
-            });
-        });
-    }
+  function escapeHtml(value) {
+    var div = document.createElement('div');
+    div.textContent = value || '';
+    return div.innerHTML;
+  }
 
-    if (quantitySelect) {
-        quantitySelect.addEventListener('change', (e) => {
-            const val = e.target.value;
-            const cost = val * 800;
-            const formattedCost = `KSH ${cost.toLocaleString()}`;
-            if (totalAmountSpan) totalAmountSpan.textContent = formattedCost;
-            if (paymentAmountStrong) paymentAmountStrong.textContent = formattedCost;
-        });
-    }
-
-    const setupCopy = (btn, textToCopy) => {
-        if (!btn) return;
-        btn.addEventListener('click', () => {
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                const originalHtml = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-check"></i> Copied';
-                setTimeout(() => { btn.innerHTML = originalHtml; }, 2000);
-            });
-        });
-    };
-
-    setupCopy(copyBusinessBtn, '880100');
-    setupCopy(copyAccountBtn, '9676730018');
-
-    if (orderForm && orderSubmitBtn) {
-        orderForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            orderSubmitBtn.textContent = 'Processing Order...';
-            orderSubmitBtn.disabled = true;
-
-            const formData = new FormData(orderForm);
-            const formObject = Object.fromEntries(formData);
-
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(formObject)
-            })
-            .then(async (response) => {
-                if (response.status === 200) {
-                    orderSubmitBtn.textContent = 'Order Submitted ✓';
-                    orderSubmitBtn.style.backgroundColor = '#15803d';
-                    orderForm.reset();
-                    if (totalAmountSpan) totalAmountSpan.textContent = 'KSH 800';
-                    if (paymentAmountStrong) paymentAmountStrong.textContent = 'KSH 800';
-                } else {
-                    orderSubmitBtn.textContent = 'Submission Failed. Try Again';
-                }
-            })
-            .catch(() => {
-                orderSubmitBtn.textContent = 'Network Error';
-            })
-            .finally(() => {
-                setTimeout(() => {
-                    orderSubmitBtn.innerHTML = '<i class="fas fa-paper-plane"></i>Submit Order';
-                    orderSubmitBtn.disabled = false;
-                    orderSubmitBtn.style.backgroundColor = '';
-                }, 4000);
-            });
-        });
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+  function fetchComments() {
+    if (!recentCommentsContainer) return;
+    fetch(GOOGLE_SHEET_URL)
+      .then(function (res) { return res.json(); })
+      .then(function (response) {
+        var data = response.data || [];
+        recentCommentsContainer.innerHTML = '';
+        if (!data.length) {
+          recentCommentsContainer.innerHTML = '<div class="comment-empty">No comments yet. Be the first to share your thoughts.</div>';
+          return;
+        }
+        data.reverse().forEach(function (item) {
+          var dateLabel = '';
+          if (item.timestamp) {
+            var d = new Date(item.timestamp);
+            if (!isNaN(d.getTime())) {
+              dateLabel = d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
             }
+          }
+          var card = document.createElement('div');
+          card.className = 'comment-card';
+          card.innerHTML =
+            '<div class="comment-card-head">' +
+            '<span class="comment-author"><i class="fas fa-user-circle"></i>' + escapeHtml(item.name || 'Anonymous') + '</span>' +
+            '<span class="comment-time">' + escapeHtml(dateLabel) + '</span>' +
+            '</div>' +
+            '<p class="comment-text">' + escapeHtml(item.comment) + '</p>';
+          recentCommentsContainer.appendChild(card);
         });
-    }, { threshold: 0.1 });
+        observeAnimatable();
+      })
+      .catch(function (err) { console.error('Fetch error:', err); });
+  }
 
-    const observeNewElements = () => {
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-            if (el.style.opacity !== '1') {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'all 0.6s ease-out';
-                observer.observe(el);
+  if (contactForm && contactBtn) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      contactBtn.innerHTML = 'Sending…';
+      contactBtn.disabled = true;
+      if (contactStatus) contactStatus.className = 'form-status';
+
+      var formData = new FormData(contactForm);
+      var payload = Object.fromEntries(formData);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then(function (response) {
+          if (response.status === 200) {
+            contactBtn.innerHTML = 'Message Sent <i class="fas fa-check"></i>';
+            contactBtn.style.background = '#1f8a4c';
+            contactForm.reset();
+            if (contactStatus) {
+              contactStatus.textContent = 'Message sent. We will be in touch shortly.';
+              contactStatus.className = 'form-status show success';
             }
+          } else {
+            contactBtn.innerHTML = 'Error. Try Again';
+            if (contactStatus) {
+              contactStatus.textContent = 'Something went wrong. Please try again.';
+              contactStatus.className = 'form-status show error';
+            }
+          }
+        })
+        .catch(function () {
+          contactBtn.innerHTML = 'Network Error';
+          if (contactStatus) {
+            contactStatus.textContent = 'Network error. Please check your connection and try again.';
+            contactStatus.className = 'form-status show error';
+          }
+        })
+        .finally(function () {
+          setTimeout(function () {
+            contactBtn.innerHTML = 'Send Message <i class="fas fa-arrow-right"></i>';
+            contactBtn.disabled = false;
+            contactBtn.style.background = '';
+          }, 4000);
         });
-    };
+    });
+  }
 
-    observeNewElements();
-    fetchComments();
+  if (commentForm && commentBtn) {
+    commentForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      commentBtn.innerHTML = 'Posting…';
+      commentBtn.disabled = true;
+
+      var formData = new FormData(commentForm);
+      if (!formData.get('name') || !formData.get('name').trim()) {
+        formData.set('name', 'Anonymous');
+      }
+      var params = new URLSearchParams(formData);
+
+      fetch(GOOGLE_SHEET_URL, { method: 'POST', mode: 'no-cors', body: params })
+        .then(function () {
+          commentBtn.innerHTML = 'Comment Posted <i class="fas fa-check"></i>';
+          commentBtn.style.background = '#1f8a4c';
+          commentForm.reset();
+          setTimeout(fetchComments, 1500);
+        })
+        .catch(function () {
+          commentBtn.innerHTML = 'Error. Try Again';
+        })
+        .finally(function () {
+          setTimeout(function () {
+            commentBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Comment';
+            commentBtn.disabled = false;
+            commentBtn.style.background = '';
+          }, 4000);
+        });
+    });
+  }
+
+  if (quantitySelect) {
+    quantitySelect.addEventListener('change', function (e) {
+      var val = parseInt(e.target.value, 10) || 1;
+      var cost = val * 800;
+      var formatted = 'KSH ' + cost.toLocaleString();
+      if (totalAmountSpan) totalAmountSpan.textContent = formatted;
+      if (paymentAmountStrong) paymentAmountStrong.textContent = formatted;
+    });
+  }
+
+  function setupCopy(btn, textToCopy) {
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      navigator.clipboard.writeText(textToCopy).then(function () {
+        var originalHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i> Copied';
+        setTimeout(function () { btn.innerHTML = originalHtml; }, 2000);
+      });
+    });
+  }
+
+  setupCopy(copyBusinessBtn, '880100');
+  setupCopy(copyAccountBtn, '9676730018');
+
+  if (orderForm && orderSubmitBtn) {
+    orderForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      orderSubmitBtn.innerHTML = 'Processing Order…';
+      orderSubmitBtn.disabled = true;
+      if (orderStatus) orderStatus.className = 'form-status';
+
+      var formData = new FormData(orderForm);
+      var payload = Object.fromEntries(formData);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then(function (response) {
+          if (response.status === 200) {
+            orderSubmitBtn.innerHTML = 'Order Submitted <i class="fas fa-check"></i>';
+            orderSubmitBtn.style.backgroundColor = '#1f8a4c';
+            orderForm.reset();
+            if (totalAmountSpan) totalAmountSpan.textContent = 'KSH 800';
+            if (paymentAmountStrong) paymentAmountStrong.textContent = 'KSH 800';
+            if (orderStatus) {
+              orderStatus.textContent = 'Order received. Confirm your M-Pesa payment to complete it.';
+              orderStatus.className = 'form-status show success';
+            }
+          } else {
+            orderSubmitBtn.innerHTML = 'Submission Failed. Try Again';
+            if (orderStatus) {
+              orderStatus.textContent = 'Something went wrong. Please try again.';
+              orderStatus.className = 'form-status show error';
+            }
+          }
+        })
+        .catch(function () {
+          orderSubmitBtn.innerHTML = 'Network Error';
+          if (orderStatus) {
+            orderStatus.textContent = 'Network error. Please check your connection and try again.';
+            orderStatus.className = 'form-status show error';
+          }
+        })
+        .finally(function () {
+          setTimeout(function () {
+            orderSubmitBtn.innerHTML = '<i class="fas fa-paper-plane"></i>Submit Order';
+            orderSubmitBtn.disabled = false;
+            orderSubmitBtn.style.backgroundColor = '';
+          }, 4000);
+        });
+    });
+  }
+
+  fetchComments();
+
 });

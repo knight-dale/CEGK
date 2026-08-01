@@ -1,74 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/jpeg" href="logo.jpeg">
-    <title>Unemployed Engagement Gallery - CEGK</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        .gallery-section { 
-            padding: 120px 5% 60px; 
-            background: var(--white); 
-        }
-
-        .gallery-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            margin-bottom: 40px;
-            width: 100%;
-        }
-
-        .gallery-header .section-title {
-            margin-bottom: 20px;
-        }
-
-        .comment-subtitle {
-            color: var(--muted);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }       
-        
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; max-width: 1400px; margin: 40px auto 0; }
-        .gallery-item { position: relative; border-radius: 12px; overflow: hidden; height: 280px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .gallery-item:hover img { transform: scale(1.05); }
-        .gallery-caption { position: absolute; inset: 0; background: linear-gradient(transparent, rgba(0,0,0,0.7)); display: flex; align-items: flex-end; padding: 20px; color: #fff; text-align: left; opacity: 0; transition: opacity 0.3s ease; }
-        .gallery-item:hover .gallery-caption { opacity: 1; }
-        .back-nav { margin-bottom: 40px; text-align: left; max-width: 1400px; margin: 0 auto; }
-        .back-link { color: var(--green); text-decoration: none; font-size: 0.9rem; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unemployed Engagement Gallery — CEGK</title>
+<link rel="icon" type="image/jpeg" href="logo.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body class="gallery-page">
 
-<section class="gallery-section">
-    <div class="back-nav">
-        <a href="index.html#grunt" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+<nav>
+  <div class="nav-container">
+    <a class="nav-brand" href="index.html">
+      <img src="logo.jpeg" alt="CEGK Logo" class="logo-img">
+      <span>CEGK</span>
+    </a>
+    <div class="nav-menu">
+      <a class="nav-cta" href="index.html#beneficiaries"><i class="fas fa-arrow-left"></i> Back to Home</a>
     </div>
+  </div>
+</nav>
 
-    <div class="gallery-header">
-        <div class="section-label">Young Adults</div>
-        <h2 class="section-title">Unemployed Engagement &amp; Skills</h2>
-        <p class="comment-subtitle">Bridging the gap via localized digital literacy camps, micro-business capitalization networks, and ICT clinics.</p>
-    </div>
-
-    <div class="gallery-grid">
-        <div class="gallery-item">
-            <img src="unemployed1.jpg" alt="ICT digital skills training">
-            <div class="gallery-caption"><h4>ICT digital skills training</h4></div>
-        </div>
-        <div class="gallery-item">
-            <img src="unemployed2.jpg" alt="Business incubation workshop">
-            <div class="gallery-caption"><h4>Business incubation workshop</h4></div>
-        </div>
-    </div>
+<section class="gallery-hero">
+  <a href="index.html#beneficiaries" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+  <div class="section-header centered">
+    <div class="eyebrow">Young Adults</div>
+    <h2 class="section-title">Unemployed engagement &amp; skills</h2>
+    <p class="section-sub">Bridging the gap via localized digital literacy camps, micro-business capitalization networks, and ICT clinics.</p>
+  </div>
 </section>
 
+<section class="gallery-section">
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <span class="gallery-tag">Digital Skills</span>
+      <img src="unemployed1.jpg" alt="ICT digital skills training">
+      <div class="gallery-caption"><h4>ICT digital skills training</h4></div>
+    </div>
+    <div class="gallery-item">
+      <span class="gallery-tag">Enterprise</span>
+      <img src="unemployed2.jpg" alt="Business incubation workshop">
+      <div class="gallery-caption"><h4>Business incubation workshop</h4></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="monogram-lg">CK</div>
+      <p>Community Empowerment and Growth Kenya is dedicated to uplifting young people through education, skills development, and opportunity.</p>
+      <p class="footer-motto">Empower Today, Transform Tomorrow</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#impact">Objectives</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Programs</h4>
+      <ul>
+        <li><a href="#programs">Education Support</a></li>
+        <li><a href="#programs">Vocational Training</a></li>
+        <li><a href="#programs">Employment &amp; Startups</a></li>
+        <li><a href="#programs">Mentorship</a></li>
+        <li><a href="#programs">Advocacy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="contact-detail">Nairobi, Kenya</p>
+      <p class="contact-detail">communityempowermentandgrowthk@gmail.com</p>
+      <p class="contact-detail">+254 757 501259</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Community Empowerment and Growth Kenya. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>

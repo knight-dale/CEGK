@@ -1,161 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order CEGK T-shirt | Community Empowerment and Growth Kenya</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order CEGK T-shirt — Community Empowerment and Growth Kenya</title>
+<link rel="icon" type="image/jpeg" href="logo.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-gray-50 min-h-screen" style="font-family: 'DM Sans', sans-serif;">
+<body>
 
-    <section class="py-12">
-        <div class="max-w-2xl mx-auto px-4">
-            
-            <div class="progress-steps mb-12">
-                <div class="flex justify-between items-center">
-                    <div class="step active flex flex-col items-center">
-                        <div class="w-8 h-8 bg-emerald-700 text-white rounded-full flex items-center justify-center font-bold text-sm">1</div>
-                        <div class="text-xs font-semibold mt-2 text-emerald-800">Order Details</div>
-                    </div>
-                    <div class="flex-1 h-0.5 bg-gray-200 mx-4"></div>
-                    <div class="step flex flex-col items-center opacity-50">
-                        <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center font-bold text-sm">2</div>
-                        <div class="text-xs font-medium mt-2 text-gray-500">Payment</div>
-                    </div>
-                    <div class="flex-1 h-0.5 bg-gray-200 mx-4"></div>
-                    <div class="step flex flex-col items-center opacity-50">
-                        <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center font-bold text-sm">3</div>
-                        <div class="text-xs font-medium mt-2 text-gray-500">Confirmation</div>
-                    </div>
-                </div>
-            </div>
+<nav>
+  <div class="nav-container">
+    <a class="nav-brand" href="index.html">
+      <img src="logo.jpeg" alt="CEGK Logo" class="logo-img">
+      <span>CEGK</span>
+    </a>
+    <div class="nav-menu">
+      <a class="nav-cta" href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+  </div>
+</nav>
 
-            <div class="bg-white border rounded-2xl shadow-sm overflow-hidden p-6 md:p-8">
-                <div class="text-center border-b pb-6 mb-8">
-                    <h1 class="text-2xl font-bold text-gray-900" style="font-family: 'Playfair Display', serif;">Order Your CEGK T-shirt</h1>
-                    <p class="text-gray-500 mt-1">Support youth empowerment and education in Kenya while looking great!</p>
-                </div>
+<section class="order-page">
+  <div class="order-wrap">
 
-                <form id="orderForm" class="space-y-8">
-                    <input type="hidden" name="access_key" value="700556ac-7c65-4a6d-b724-38cb4fbbc600">
-                    <input type="hidden" name="from_name" value="CEGK Merchandise System">
-                    <input type="hidden" name="subject" value="New T-Shirt Order Received">
-                    
-                    <div>
-                        <h3 class="text-sm font-bold tracking-wider text-emerald-800 uppercase flex items-center mb-4">
-                            <i class="fas fa-user mr-2"></i>Personal Information
-                        </h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label for="fullName" class="block text-xs font-semibold text-gray-500 uppercase mb-2">Full Name *</label>
-                                <input type="text" id="fullName" name="fullName" required class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 outline-none transition" placeholder="Enter your full name">
-                            </div>
-                            <div>
-                                <label for="phone" class="block text-xs font-semibold text-gray-500 uppercase mb-2">Phone Number (M-Pesa) *</label>
-                                <input type="tel" id="phone" name="phone" required class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 outline-none transition" placeholder="07XXXXXXXX">
-                            </div>
-                        </div>
-                        <div class="mt-4">
-                            <label for="email" class="block text-xs font-semibold text-gray-500 uppercase mb-2">Email Address</label>
-                            <input type="email" id="email" name="email" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 outline-none transition" placeholder="your@email.com (optional)">
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-sm font-bold tracking-wider text-emerald-800 uppercase flex items-center mb-4">
-                            <i class="fas fa-tshirt mr-2"></i>Order Details
-                        </h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label for="size" class="block text-xs font-semibold text-gray-500 uppercase mb-2">T-shirt Size *</label>
-                                <select id="size" name="size" required class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 outline-none transition appearance-none">
-                                    <option value="">Select Size</option>
-                                    <option value="M">Medium</option>
-                                    <option value="L">Large</option>
-                                    <option value="XL">Extra Large</option>
-                                    <option value="XXL">2XL</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="quantity" class="block text-xs font-semibold text-gray-500 uppercase mb-2">Quantity *</label>
-                                <select id="quantity" name="quantity" required class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 outline-none transition appearance-none">
-                                    <option value="1">1 T-shirt - KSH 800</option>
-                                    <option value="2">2 T-shirts - KSH 1,600</option>
-                                    <option value="3">3 T-shirts - KSH 2,400</option>
-                                    <option value="4">4 T-shirts - KSH 3,200</option>
-                                    <option value="5">5 T-shirts - KSH 4,000</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-sm font-bold tracking-wider text-emerald-800 uppercase flex items-center mb-4">
-                            <i class="fas fa-truck mr-2"></i>Delivery Information
-                        </h3>
-                        <div>
-                            <label for="location" class="block text-xs font-semibold text-gray-500 uppercase mb-2">Delivery Location *</label>
-                            <input type="text" id="location" name="location" required class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 outline-none transition" placeholder="e.g., Nairobi CBD, Westlands, Thika, etc.">
-                        </div>
-                        <div class="mt-4">
-                            <label for="address" class="block text-xs font-semibold text-gray-500 uppercase mb-2">Detailed Address</label>
-                            <textarea id="address" name="address" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 outline-none transition resize-none" rows="3" placeholder="Building name, apartment number, street, nearby landmark..."></textarea>
-                        </div>
-                    </div>
-
-                    <div class="bg-gray-50 border border-gray-200 rounded-2xl p-5 space-y-4">
-                        <div class="flex justify-between items-center border-b pb-3">
-                            <h4 class="font-bold text-gray-800 flex items-center">
-                                <i class="fas fa-money-bill-wave text-emerald-600 mr-2"></i>Pay via M-Pesa
-                            </h4>
-                            <div class="text-xl font-bold text-emerald-700">
-                                Total: <span id="totalAmount">KSH 800</span>
-                            </div>
-                        </div>
-                        <div class="space-y-3 text-sm text-gray-700">
-                            <div class="flex items-center"><span class="w-5 h-5 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-bold text-xs mr-3">1</span>Go to M-Pesa on your phone</div>
-                            <div class="flex items-center"><span class="w-5 h-5 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-bold text-xs mr-3">2</span>Select "Lipa Na M-Pesa" then "Pay Bill"</div>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center"><span class="w-5 h-5 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-bold text-xs mr-3">3</span>Business No: <strong class="ml-1">880100</strong></div>
-                                <button type="button" id="copyBusinessNo" class="text-xs bg-white border px-2.5 py-1 rounded-md text-gray-600 hover:bg-gray-100 flex items-center gap-1 transition"><i class="fas fa-copy"></i>Copy</button>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center"><span class="w-5 h-5 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-bold text-xs mr-3">4</span>Account No: <strong class="ml-1">9676730018</strong></div>
-                                <button type="button" id="copyAccountNo" class="text-xs bg-white border px-2.5 py-1 rounded-md text-gray-600 hover:bg-gray-100 flex items-center gap-1 transition"><i class="fas fa-copy"></i>Copy</button>
-                            </div>
-                            <div class="flex items-center"><span class="w-5 h-5 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-bold text-xs mr-3">5</span>Amount: <strong id="paymentAmount" class="ml-1">KSH 800</strong></div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-4">
-                        <div class="text-xs text-gray-500 bg-emerald-50 border border-emerald-100 rounded-xl p-3.5 flex items-start">
-                            <i class="fas fa-envelope text-emerald-600 text-base mr-3 mt-0.5"></i>
-                            <span>Ensure payment has been sent before finishing. Your order parameters are immediately transmitted securely via encrypted channel for quick verification.</span>
-                        </div>
-                                                
-                        <div class="flex flex-col sm:flex-row gap-3">
-                            <button type="submit" id="submitBtn" class="flex-1 bg-emerald-700 hover:bg-emerald-800 text-white font-bold p-4 rounded-xl text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-sm">
-                                <i class="fas fa-paper-plane"></i>Submit Order
-                            </button>
-                            <a class="bg-white border text-gray-700 font-medium p-4 rounded-xl text-sm text-center flex items-center justify-center gap-2 hover:bg-gray-50 transition" href="index.html">
-                                <i class="fas fa-arrow-left"></i>Back to Home
-                            </a>
-                        </div>
-                    </div>
-                </form>
-            </div>
+    <div class="progress-steps">
+      <div class="progress-row">
+        <div class="progress-step active">
+          <div class="progress-dot">1</div>
+          <div class="progress-label">Order Details</div>
         </div>
-    </section>
-
-    <footer class="bg-white border-t mt-12">
-        <div class="max-w-6xl mx-auto px-4 py-6 text-center text-gray-500 text-sm">
-            <p>&copy; 2026 Community Empowerment and Growth Kenya. All rights reserved.</p>
+        <div class="progress-line"></div>
+        <div class="progress-step">
+          <div class="progress-dot">2</div>
+          <div class="progress-label">Payment</div>
         </div>
-    </footer>
+        <div class="progress-line"></div>
+        <div class="progress-step">
+          <div class="progress-dot">3</div>
+          <div class="progress-label">Confirmation</div>
+        </div>
+      </div>
+    </div>
 
-    <script src="script.js"></script>
+    <div class="order-card">
+      <div class="order-head">
+        <h1>Order Your CEGK T-shirt</h1>
+        <p>Support youth empowerment and education in Kenya while looking great.</p>
+      </div>
+
+      <form id="orderForm">
+        <input type="hidden" name="access_key" value="700556ac-7c65-4a6d-b724-38cb4fbbc600">
+        <input type="hidden" name="from_name" value="CEGK Merchandise System">
+        <input type="hidden" name="subject" value="New T-Shirt Order Received">
+
+        <div class="form-block">
+          <div class="form-block-title"><i class="fas fa-user"></i>Personal Information</div>
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label for="fullName">Full Name *</label>
+              <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+            </div>
+            <div class="field-group">
+              <label for="phone">Phone Number (M-Pesa) *</label>
+              <input type="tel" id="phone" name="phone" required placeholder="07XXXXXXXX">
+            </div>
+          </div>
+          <div class="field-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com (optional)">
+          </div>
+        </div>
+
+        <div class="form-block">
+          <div class="form-block-title"><i class="fas fa-tshirt"></i>Order Details</div>
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label for="size">T-shirt Size *</label>
+              <select id="size" name="size" required>
+                <option value="">Select Size</option>
+                <option value="M">Medium</option>
+                <option value="L">Large</option>
+                <option value="XL">Extra Large</option>
+                <option value="XXL">2XL</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="quantity">Quantity *</label>
+              <select id="quantity" name="quantity" required>
+                <option value="1">1 T-shirt — KSH 800</option>
+                <option value="2">2 T-shirts — KSH 1,600</option>
+                <option value="3">3 T-shirts — KSH 2,400</option>
+                <option value="4">4 T-shirts — KSH 3,200</option>
+                <option value="5">5 T-shirts — KSH 4,000</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-block">
+          <div class="form-block-title"><i class="fas fa-truck"></i>Delivery Information</div>
+          <div class="field-group">
+            <label for="location">Delivery Location *</label>
+            <input type="text" id="location" name="location" required placeholder="e.g., Nairobi CBD, Westlands, Thika, etc.">
+          </div>
+          <div class="field-group">
+            <label for="address">Detailed Address</label>
+            <textarea id="address" name="address" placeholder="Building name, apartment number, street, nearby landmark..."></textarea>
+          </div>
+        </div>
+
+        <div class="pay-box">
+          <div class="pay-head">
+            <h4><i class="fas fa-money-bill-wave"></i>Pay via M-Pesa</h4>
+            <div class="pay-total">Total: <span id="totalAmount">KSH 800</span></div>
+          </div>
+          <div class="pay-step"><span class="pay-step-num">1</span>Go to M-Pesa on your phone</div>
+          <div class="pay-step"><span class="pay-step-num">2</span>Select "Lipa Na M-Pesa" then "Pay Bill"</div>
+          <div class="pay-step pay-row">
+            <span><span class="pay-step-num">3</span>Business No: <strong>880100</strong></span>
+            <button type="button" id="copyBusinessNo" class="copy-btn"><i class="fas fa-copy"></i>Copy</button>
+          </div>
+          <div class="pay-step pay-row">
+            <span><span class="pay-step-num">4</span>Account No: <strong>9676730018</strong></span>
+            <button type="button" id="copyAccountNo" class="copy-btn"><i class="fas fa-copy"></i>Copy</button>
+          </div>
+          <div class="pay-step"><span class="pay-step-num">5</span>Amount: <strong id="paymentAmount">KSH 800</strong></div>
+        </div>
+
+        <div class="notice-box">
+          <i class="fas fa-shield-halved"></i>
+          <span>Ensure payment has been sent before finishing. Your order details are transmitted securely for quick verification.</span>
+        </div>
+
+        <div class="order-actions">
+          <button type="submit" id="submitBtn" class="btn btn-primary"><i class="fas fa-paper-plane"></i>Submit Order</button>
+          <a class="btn btn-outline" href="index.html"><i class="fas fa-arrow-left"></i>Back to Home</a>
+        </div>
+        <p class="form-status" id="orderStatus"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="monogram-lg">CK</div>
+      <p>Community Empowerment and Growth Kenya is dedicated to uplifting young people through education, skills development, and opportunity.</p>
+      <p class="footer-motto">Empower Today, Transform Tomorrow</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#impact">Objectives</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Programs</h4>
+      <ul>
+        <li><a href="#programs">Education Support</a></li>
+        <li><a href="#programs">Vocational Training</a></li>
+        <li><a href="#programs">Employment &amp; Startups</a></li>
+        <li><a href="#programs">Mentorship</a></li>
+        <li><a href="#programs">Advocacy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="contact-detail">Nairobi, Kenya</p>
+      <p class="contact-detail">communityempowermentandgrowthk@gmail.com</p>
+      <p class="contact-detail">+254 757 501259</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Community Empowerment and Growth Kenya. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
